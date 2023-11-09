@@ -17,7 +17,12 @@ $ npm run dev
 npm install --save niiicolai-apps/frontend-webgl
 ```
 
-# Update in other projects
+## Update in other projects
 ```bash
 npm update niiicolai-apps/frontend-webgl
+```
+
+## Use in Vue files
+```js
+import WebGL from 'niiicolai-apps/frontend-webgl';
 ```
