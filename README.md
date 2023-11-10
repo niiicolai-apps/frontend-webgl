@@ -4,6 +4,18 @@
 $ npm install
 ```
 
+# Release
+1. Ensure 7zip is installed (https://www.7-zip.org/download.html)
+2. Set system env. variable: 
+```bash
+export PATH=$PATH:/c/Program\ Files/7-Zip
+```
+3. Run the release script:
+```bash
+$ bash release.sh
+```
+4. Create and publish a new release on https://github.com/niiicolai-apps/frontend-webgl/releases/new (Remember to include the zip created in step 3)
+
 # Usage in development
 
 ```bash
