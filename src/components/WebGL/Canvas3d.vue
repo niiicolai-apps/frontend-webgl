@@ -31,15 +31,24 @@ const initialize = () => {
     const canvas = c.value
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true })
 
-    const fov = props.options.camera?.fov || 75
-    const aspect = props.options.camera?.aspect || 2
-    const near = props.options.camera?.near || 0.1
-    const far = props.options.camera?.far || 5
-    const camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
+    let camera;
+    if (props.options.camera?.custom) {
+        camera = props.options.camera.custom
+    } else {
+        const fov = props.options.camera?.fov || 75
+        const aspect = props.options.camera?.aspect || 2
+        const near = props.options.camera?.near || 0.1
+        const far = props.options.camera?.far || 5
+        camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
+    }
     
-    camera.position.x = props.options.camera?.x || 0
-    camera.position.y = props.options.camera?.y || 0
-    camera.position.z = props.options.camera?.z || 0
+    camera.position.x = props.options.camera?.position?.x || 0
+    camera.position.y = props.options.camera?.position?.y || 0
+    camera.position.z = props.options.camera?.position?.z || 0
+
+    camera.rotation.x = props.options.camera?.rotation?.x || 0
+    camera.rotation.y = props.options.camera?.rotation?.y || 0
+    camera.rotation.z = props.options.camera?.rotation?.z || 0
 
     const scene = new THREE.Scene()
     const lifeCycle = {

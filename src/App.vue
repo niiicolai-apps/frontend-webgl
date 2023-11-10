@@ -1,8 +1,8 @@
 <script setup>
-import MatrixBgg from './components/WebGL/MatrixBgg.vue';
+import TopDownCameraExample from './components/WebGL/TopDownCameraExample.vue';
 </script>
 
 <template>
-    <MatrixBgg />
+    <TopDownCameraExample />
 </template>
 

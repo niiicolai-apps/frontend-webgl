@@ -15,7 +15,7 @@ import { ref, onMounted } from 'vue';
 const canvas = ref(null);
 const options = {
     camera: {
-        z: 5,
+        position: { z: 5 },
         far: 1000,
     },
 };

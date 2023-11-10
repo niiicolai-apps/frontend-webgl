@@ -25,8 +25,9 @@ $ npm run dev
 # Usage in other projects
 
 ## Install in other projects
+Remember to replace `#1.0.0` with the needed version.
 ```bash
-npm install --save niiicolai-apps/frontend-webgl
+npm install --save niiicolai-apps/frontend-webgl#1.0.0
 ```
 
 ## Update in other projects
@@ -72,7 +73,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <WebGL.Canvas3D 
+    <WebGL.components.Canvas3D 
         ref="canvas" 
         :options="options"
         class="w-full h-full block"
@@ -87,6 +88,62 @@ import WebGL from 'frontend-webgl';
 </script>
 
 <template>
-    <WebGL.MatrixBgg />
+    <WebGL.components.MatrixBgg />
+</template>
+```
+
+## Top Down Camera
+```vue
+<script setup>
+
+import WebGL from 'frontend-webgl';
+import * as THREE from 'three'
+import { ref, onMounted } from 'vue';
+const cameraManager = WebGL.composables.useTopDownCamera({
+    minZoom: 5,
+    maxZoom: 120,
+    currentZoom: 80,
+    currentPosition: new THREE.Vector3(0, 0, 35),
+});
+const canvas = ref(null);
+const options = {
+    camera: {
+        // Inject custom camera
+        custom: cameraManager.camera,
+        rotation: { 
+            x: -60 * Math.PI / 180, 
+        },
+    },
+};
+
+onMounted(() => {
+    const { scene, lifeCycle } = canvas.value.adapter;
+
+    const geometry = new THREE.BoxGeometry(1, 1, 1);
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const cube = new THREE.Mesh(geometry, material);
+
+    scene.add(cube);
+
+    lifeCycle.onAnimate.push(() => {
+        // Update zoom and position
+        cameraManager.update();
+    });
+
+    // Start listeners
+    cameraManager.enable();
+})
+onUnmounted(() => {
+    // Disable listeners
+    cameraManager.disable(); 
+})
+</script>
+
+<template>
+    <WebGL.components.Canvas3D 
+        ref="canvas" 
+        :options="options"
+        class="w-full h-full block"
+    />
 </template>
 ```
