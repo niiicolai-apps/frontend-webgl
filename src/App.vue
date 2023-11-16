@@ -1,8 +1,10 @@
 <script setup>
-import NavigationExample from './components/WebGL/NavigationExample.vue';
+import SelectExample from './components/WebGL/SelectExample.vue';
 </script>
 
 <template>
-    <NavigationExample />
+    <div>
+        <SelectExample />
+    </div>
 </template>
 
