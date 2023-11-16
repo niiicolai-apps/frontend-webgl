@@ -1,8 +1,8 @@
 <script setup>
-import TopDownCameraExample from './components/WebGL/TopDownCameraExample.vue';
+import NavigationExample from './components/WebGL/NavigationExample.vue';
 </script>
 
 <template>
-    <TopDownCameraExample />
+    <NavigationExample />
 </template>
 

@@ -25,9 +25,9 @@ $ npm run dev
 # Usage in other projects
 
 ## Install in other projects
-Remember to replace `#1.0.0` with the needed version.
+Remember to replace `#v1.0.0` with the needed version.
 ```bash
-npm install --save niiicolai-apps/frontend-webgl#1.0.0
+npm install --save niiicolai-apps/frontend-webgl#v1.0.0
 ```
 
 ## Update in other projects
