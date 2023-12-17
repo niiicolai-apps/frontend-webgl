@@ -1,32 +1,32 @@
 import * as THREE from 'three'
 import Touches from '../utils/touches.js';
+import { ref } from 'vue'
 
 export const useTopDownCamera = (options = {}) => {
-
     const near = options.near || 0.1;
     const far = options.far || 1000;
     const fov = options.fov || 45;
     const aspect = options.aspect || window.innerWidth / window.innerHeight;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
-    const moveSpeed = options.moveSpeed || 0.1;
-    const currentPosition = options.currentPosition || new THREE.Vector3(0, 5, 0);
+    const moveSpeed = ref(options.moveSpeed || 0.1);
+    const zoomSpeed = ref(options.zoomSpeed || 3);
+    const minZoom = ref(options.minZoom || 0.1);
+    const maxZoom = ref(options.maxZoom || 50);
 
-    const zoomSpeed = options.zoomSpeed || 3;
-    const minZoom = options.minZoom || 0.1;
-    const maxZoom = options.maxZoom || 50;
-    const currentZoom = new THREE.Vector3(0, (options.currentZoom || 50), 0);
+    const currentPosition = options.currentPosition || new THREE.Vector3(0, 5, 0);
+    const currentZoom = options.zoomVector || new THREE.Vector3(0, options.currentZoom || 50, 0);
 
     const zoom = (dir) => {
-        currentZoom.y += dir * zoomSpeed;
-        currentZoom.y = Math.max(currentZoom.y, minZoom);
-        currentZoom.y = Math.min(currentZoom.y, maxZoom);      
+        currentZoom.y += dir * zoomSpeed.value;
+        currentZoom.y = Math.max(currentZoom.y, minZoom.value);
+        currentZoom.y = Math.min(currentZoom.y, maxZoom.value);      
     }
 
     const move = (dx, dy, dz) => {
-        currentPosition.x += dx * moveSpeed;
-        currentPosition.y += dy * moveSpeed;
-        currentPosition.z += dz * moveSpeed;
+        currentPosition.x += dx * moveSpeed.value;
+        currentPosition.y += dy * moveSpeed.value;
+        currentPosition.z += dz * moveSpeed.value;
     }
 
     const adjustPosition = () => {
@@ -90,12 +90,51 @@ export const useTopDownCamera = (options = {}) => {
         window.removeEventListener('pointermove', onPointerMove);
     }
 
+    const setMoveSpeed = (speed) => {
+        moveSpeed.value = speed;
+    }
+
+    const setZoomSpeed = (speed) => {
+        zoomSpeed.value = speed;
+    }
+
+    const setMinZoom = (min) => {
+        minZoom.value = min;
+    }
+
+    const setMaxZoom = (max) => {
+        maxZoom.value = max;
+    }
+
+    const setPosition = (x, z) => {
+        currentPosition.x = x;
+        currentPosition.y = currentZoom.y;
+        currentPosition.z = z;
+    }
+
+    const setZoom = (zoom) => {
+        currentZoom.y = zoom;
+    }
+
+    const focus = (object3D, xOffset=0, zOffset=15, zoomValue=25) => {
+        const objectPosition = object3D.position;
+        setPosition(objectPosition.x + xOffset, objectPosition.z + zOffset);
+        setZoom(zoomValue);
+    }
+
     return {
         zoom,
         move,
         update,
         camera,
         enable,
-        disable
+        disable,
+        setMoveSpeed,
+        setZoomSpeed,
+        setMinZoom,
+        setMaxZoom,
+        setPosition,
+        setZoom,
+        focus
     }
 }

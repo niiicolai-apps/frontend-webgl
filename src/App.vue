@@ -1,10 +1,10 @@
 <script setup>
-import SelectExample from './components/WebGL/SelectExample.vue';
+import TopDownCameraExample from "./components/WebGL/TopDownCameraExample.vue";
 </script>
 
 <template>
     <div>
-        <SelectExample />
+        <TopDownCameraExample />
     </div>
 </template>
 

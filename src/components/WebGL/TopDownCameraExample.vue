@@ -66,7 +66,6 @@ onMounted(() => {
         } else {
             cubeMesh.position.x -= 0.1;
         }
-
         cameraManager.update();
     });
 
