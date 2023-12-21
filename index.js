@@ -1,4 +1,4 @@
-import Canvas3D from './src/components/WebGL/Canvas3D.vue';
+import Canvas3D from './src/components/WebGL/Canvas3d.vue';
 import MatrixBgg from './src/components/WebGL/MatrixBgg.vue';
 
 import TopDownCameraExample from './src/components/WebGL/TopDownCameraExample.vue';
